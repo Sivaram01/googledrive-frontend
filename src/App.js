@@ -1,25 +1,43 @@
-import logo from './logo.svg';
+import React from 'react'
 import './App.css';
+import Header from './Header.1';
+import AddIcon from '@mui/icons-material/Add';
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 
-function App() {
+import { Switch, Route } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
+import { Register } from './Register';
+// import { useState} from 'react';
+
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+     <div className="container-section">   
+        <Switch>
+        <Route  exact path="/">
+        <Header/>
+        <Dashboard/>
+        </Route> 
+       <Route path="/sign-up">
+       <Register/>
+      </Route> 
+      </Switch>
+     </div>
   );
 }
 
-export default App;
+
+function Dashboard(){
+    const history = useHistory();
+   return(
+     <div className="dashboard">
+        <button  className = "m-5 btn btn-success"><AddIcon/> Add File</button>
+        <button  onClick={()=> {
+           history.push("/sign-up")
+        }} className = "m-5 btn btn-primary"><PersonAddAltIcon/> Sign up</button>
+
+     </div>
+   )
+}
+
+
