@@ -3,7 +3,6 @@ import './App.css';
 import Header from './Header.1';
 import AddIcon from '@mui/icons-material/Add';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
-
 import { Switch, Route } from "react-router-dom";
 import { useHistory } from 'react-router-dom';
 import { Register } from './Register';
@@ -35,6 +34,7 @@ function Dashboard(){
         <button  onClick={()=> {
            history.push("/sign-up")
         }} className = "m-5 btn btn-primary"><PersonAddAltIcon/> Sign up</button>
+        <button className = "m-5 btn btn-primary"><PersonAddAltIcon/> Login</button>
 
      </div>
    )
