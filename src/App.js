@@ -6,6 +6,7 @@ import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import { Switch, Route } from "react-router-dom";
 import { useHistory } from 'react-router-dom';
 import { Register } from './Register';
+import { Login } from './login';
 // import { useState} from 'react';
 
 
@@ -17,8 +18,11 @@ export default function App() {
         <Header/>
         <Dashboard/>
         </Route> 
-       <Route path="/sign-up">
+       <Route path="/api/sign-up">
        <Register/>
+      </Route> 
+       <Route path="/api/login">
+       <Login/>
       </Route> 
       </Switch>
      </div>
@@ -32,9 +36,11 @@ function Dashboard(){
      <div className="dashboard">
         <button  className = "m-5 btn btn-success"><AddIcon/> Add File</button>
         <button  onClick={()=> {
-           history.push("/sign-up")
+           history.push("/api/sign-up")
         }} className = "m-5 btn btn-primary"><PersonAddAltIcon/> Sign up</button>
-        <button className = "m-5 btn btn-primary"><PersonAddAltIcon/> Login</button>
+        <button onClick={()=> {
+           history.push("/api/login")}} className = "m-5 btn btn-primary"><PersonAddAltIcon/> Login
+           </button>
 
      </div>
    )

@@ -5,35 +5,33 @@ import * as yup from 'yup';
 import TextField from '@mui/material/TextField';
 
 
-export function Register() {
+export function Login() {
     
 
   const history = useHistory();
 
   const formValidateSchema = yup.object({
 
-    firstname: yup.string().min(3 , "please provide a valid name").required("firstname filed is empty"),
-    lastname: yup.string().min(3 , "please provide a valid name").required("lastname filed is empty"),
     email : yup.string().min(5 , "please provide a vaild Email Address").required("Email filed is empty")
     .matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i , "invalid pattern"),
     password : yup.string().min(8).max(12 , "Need a shorter password").required("password filed is empty"),
   });
   const formik = useFormik({
-    initialValues : {firstname: "", lastname:"", email : "" , password : ""},
+    initialValues : {email : "" , password : ""},
     validationSchema : formValidateSchema,
     //only when no error sumbit,
-    onSubmit : (newUser) => {
-      console.log("onSumbit" , newUser);
-      addUser(newUser);
+    onSubmit : (ourUser) => {
+      console.log("onSumbit" , ourUser);
+      existingUser(ourUser);
     }
   });
-   const addUser = (newUser)=> {
-    fetch(`http://localhost:8000/api/sign-up`,
+   const existingUser = (ourUser)=> {
+    fetch(`http://localhost:8000/api/login`,
     {
       method : "POST",
-      body : JSON.stringify(newUser),
+      body : JSON.stringify(ourUser),
       headers: {'Content-Type': 'application/json'},
-    }).then(()=> history.push("/"));
+    }).then(()=> history.push("/")).catch(err=>(console.log(err)));
   };
  
 
@@ -41,28 +39,6 @@ export function Register() {
      
     <div>
     <form onSubmit = {formik.handleSubmit} className="sign-up">
-
-        <TextField  
-         id = "firstname"
-        name = "firstname"
-        type = "text"
-        value={formik.values.firstname}
-        onChange = {formik.handleChange}
-        onBlur = {formik.handleBlur}
-        error = {formik.errors.firstname && formik.touched.firstname}
-        helperText =   {formik.errors.firstname && formik.touched.firstname && formik.errors.firstname}
-        placeholder = "Enter your First Name" label="First Name" variant="outlined" />  
-
-        <TextField  
-         id = "lastname"
-        name = "lastname"
-        type = "text"
-        value={formik.values.lastname}
-        onChange = {formik.handleChange}
-        onBlur = {formik.handleBlur}
-        error = {formik.errors.lastname && formik.touched.lastname}
-        helperText =   {formik.errors.lastname && formik.touched.lastname && formik.errors.lastname}
-        placeholder = "Enter your Last Name" label="Last Name" variant="outlined" />  
 
         <TextField  
          id = "email"
